@@ -50,6 +50,25 @@ function DashboardPage() {
     setIsLoading(false);
   };
 
+  // --- NUEVA FUNCIÓN PARA BORRAR ASIGNATURA DESDE EL DASHBOARD ---
+  const handleDeleteSubject = async (subjectId, subjectName) => {
+    // Evita que el clic en el botón active el Link
+    event.stopPropagation(); 
+    event.preventDefault(); 
+
+    if (window.confirm(`¿Seguro que quieres borrar la asignatura "${subjectName}" y todos sus datos?`)) {
+        setIsLoading(true);
+        const { error } = await supabase.from('subjects').delete().eq('id', subjectId);
+        if (error) {
+            toast.error('Error al borrar la asignatura.');
+        } else {
+            toast.success('Asignatura borrada.');
+            setSubjects(prev => prev.filter(s => s.id !== subjectId)); // Actualiza la lista al instante
+        }
+        setIsLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/login');
@@ -79,8 +98,16 @@ function DashboardPage() {
           <div className="subjects-list">
             {subjects.length > 0 ? (
               subjects.map(subject => (
+                // El Link ahora envuelve toda la tarjeta
                 <Link to={`/subject/${subject.id}`} key={subject.id} className="subject-card">
-                  {subject.name}
+                  <span>{subject.name}</span>
+                  {/* Botón de borrar dentro de la tarjeta */}
+                  <button 
+                    onClick={() => handleDeleteSubject(subject.id, subject.name)} 
+                    className="subject-delete-button"
+                  >
+                    🗑️ {/* Ícono de papelera */}
+                  </button>
                 </Link>
               ))
             ) : (

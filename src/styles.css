@@ -17,7 +17,7 @@ body {
   text-align: center;
 }
 
-input {
+input, select {
   margin: 5px;
   padding: 8px;
   border-radius: 4px;
@@ -34,11 +34,12 @@ button {
   font-weight: 500;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
   color: white;
 }
 button:hover {
   border-color: #646cff;
+  background-color: #333;
 }
 
 .calculator-container {
@@ -62,6 +63,7 @@ button:hover {
     box-sizing: border-box;
 }
 
+/* --- ESTILOS MEJORADOS PARA EL DASHBOARD --- */
 .dashboard-container header {
     display: flex;
     justify-content: space-between;
@@ -74,94 +76,160 @@ button:hover {
     margin: 0;
 }
 
-.input-with-symbol {
-  position: relative;
+.subject-creator {
+  margin-bottom: 2rem;
+}
+.subject-creator form {
   display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.subject-creator input {
+  width: 100%;
+  max-width: 300px;
+}
+
+.subjects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.subject-card {
+  background-color: #2D2D2D;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1.5rem 1rem; /* Ajustado el padding */
+  color: #E0E0E0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em; /* Ajustado el tamaño */
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; /* Para alinear el nombre y el botón */
+  justify-content: space-between; /* Pone el botón a la derecha */
   align-items: center;
 }
 
-.input-with-symbol input {
-  padding-right: 25px;
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border-color: #646cff;
 }
 
-.input-with-symbol span {
-  position: absolute;
-  right: 15px;
-  color: #666;
-  pointer-events: none;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-text-fill-color: #E0E0E0 !important;
-    box-shadow: 0 0 0 30px #333 inset !important;
-}
-.delete-button { background-color: #a02c2c !important; }
-
-/* Estilos del Calendario */
-.attendance-container { display: flex; flex-direction: column; }
-.subject-controls { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #444; }
-.calendar-wrapper { margin-top: 15px; }
-.react-calendar { width: 100%; border-radius: 12px; border: 1px solid #333; background: #2D2D2D; font-family: inherit; padding: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
-.react-calendar__navigation button { color: #a9a9b3; min-width: 44px; background: none; font-size: 1.2em; font-weight: bold; border-radius: 8px; }
-.react-calendar__navigation button:hover { background-color: #3f3f46; }
-.react-calendar__navigation button:disabled { color: #52525b; }
-.react-calendar__month-view__weekdays__weekday { color: #a9a9b3; text-decoration: none; text-transform: uppercase; font-weight: 500; font-size: 0.7em; padding-bottom: 10px; }
-.react-calendar__month-view__weekdays__weekday abbr { text-decoration: none; }
-.react-calendar__tile { background: none; color: #E0E0E0; border: none; border-radius: 8px; margin: 2px; height: 50px; transition: background-color 0.2s, transform 0.2s; }
-.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus { background: #3f3f46; transform: scale(1.05); }
-.react-calendar__tile--now { background: none; box-shadow: inset 0 0 0 2px #646cff; }
-.react-calendar__month-view__days__day--neighboringMonth { color: #52525b; }
-.react-calendar__tile.presente { background: rgba(40, 167, 69, 0.4); }
-.react-calendar__tile.ausente { background: rgba(220, 53, 69, 0.4); }
-.react-calendar__tile.presente:hover, .react-calendar__tile.ausente:hover { transform: scale(1.05); }
-.attendance-summary { margin-top: 20px; text-align: left; }
-.presente-dot, .ausente-dot { height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
-.presente-dot { background-color: #28a745; }
-.ausente-dot { background-color: #dc3545; }
-
-/* Estilos para Instrucciones */
-.instructions { font-size: 0.9em; color: #a9a9b3; max-width: 80%; margin: -10px auto 20px auto; line-height: 1.4; }
-
-/* Estilos para Formularios de Login y Registro */
-.auth-container { border: 1px solid #444; border-radius: 12px; padding: 2rem 3rem; width: 100%; max-width: 400px; background-color: #2D2D2D; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
-.auth-form .form-group { display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1.2rem; text-align: left; }
-.auth-form .form-group label { margin-bottom: 0.5rem; font-weight: 500; color: #a9a9b3; }
-.auth-form .form-group input { width: 100%; box-sizing: border-box; }
-.auth-form button { width: 100%; margin-top: 1rem; }
-.auth-link { margin-top: 1.5rem; }
-.auth-link a { color: #64b5f6; font-weight: bold; text-decoration: none; }
-.auth-link a:hover { text-decoration: underline; }
-
-/* Estilos para Estados de Resultado */
-.status-aprobado { color: #28a745; font-weight: bold; }
-.status-reprobado { color: #dc3545; font-weight: bold; }
-
-/* Estilos para Encabezados de Calculadora de Promedio */
-.form-headers { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 5px; }
-.form-headers span { width: 160px; margin: 0 5px; box-sizing: border-box; font-weight: bold; color: #a9a9b3; font-size: 0.9em; }
-.form-headers .placeholder { width: 40px; margin: 0 5px; }
-
-/* Estilos para Resumen de Asistencia */
-.summary-divider {
+.subject-delete-button {
+  background-color: transparent;
   border: none;
-  border-top: 1px solid #444;
-  margin: 10px 0;
+  color: #a9a9b3;
+  font-size: 1.2em; /* Tamaño del ícono */
+  padding: 5px;
+  cursor: pointer;
+  line-height: 1; /* Para que el ícono no desalinee */
+  margin-left: 10px; /* Espacio entre nombre y botón */
 }
-.percentage-summary {
-  margin-top: 10px;
-  font-size: 1.1em;
+.subject-delete-button:hover {
+  color: #dc3545; /* Rojo al pasar el mouse */
+  background-color: transparent; /* Evita cambio de fondo */
+  border-color: transparent;
 }
 
-/* Arreglos para Móviles */
+/* --- ESTILOS PARA LA VISTA DE DETALLE --- */
+.subject-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #444;
+}
+.subject-detail-header h1 {
+  font-size: 1.8em;
+  margin: 0;
+  flex-grow: 1; /* Para que ocupe el espacio central */
+  text-align: center; /* Centrar el nombre de la asignatura */
+}
+.back-link {
+  color: #a9a9b3;
+  text-decoration: none;
+  font-weight: bold;
+}
+.back-link:hover {
+  color: #646cff;
+}
+.header-delete-button {
+  background-color: #a02c2c !important;
+  color: white !important;
+  font-size: 0.9em !important;
+  padding: 8px 12px !important;
+}
+.header-delete-button:hover {
+  background-color: #c82333 !important;
+}
+
+/* --- RESTO DE ESTILOS (Inputs, Calendario, etc.) --- */
+.input-with-symbol { /* ... */ }
+.input-with-symbol input { /* ... */ }
+.input-with-symbol span { /* ... */ }
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { /* ... */ }
+.attendance-container { /* ... */ }
+.subject-controls { /* ... */ }
+.calendar-wrapper { /* ... */ }
+.react-calendar { /* ... */ }
+.react-calendar__navigation button { /* ... */ }
+.react-calendar__month-view__weekdays__weekday { /* ... */ }
+.react-calendar__month-view__weekdays__weekday abbr { /* ... */ }
+.react-calendar__tile { /* ... */ }
+.react-calendar__tile:enabled:hover, .react-calendar__tile:enabled:focus { /* ... */ }
+.react-calendar__tile--now { /* ... */ }
+.react-calendar__month-view__days__day--neighboringMonth { /* ... */ }
+.react-calendar__tile.presente { /* ... */ }
+.react-calendar__tile.ausente { /* ... */ }
+.react-calendar__tile.presente:hover, .react-calendar__tile.ausente:hover { /* ... */ }
+.attendance-summary { /* ... */ }
+.presente-dot, .ausente-dot { /* ... */ }
+.presente-dot { /* ... */ }
+.ausente-dot { /* ... */ }
+.instructions { /* ... */ }
+.auth-container { /* ... */ }
+.auth-form .form-group { /* ... */ }
+.auth-form .form-group label { /* ... */ }
+.auth-form .form-group input { /* ... */ }
+.auth-form button { /* ... */ }
+.auth-link { /* ... */ }
+.auth-link a { /* ... */ }
+.auth-link a:hover { /* ... */ }
+.status-aprobado { /* ... */ }
+.status-reprobado { /* ... */ }
+.form-headers { /* ... */ }
+.form-headers span { /* ... */ }
+.form-headers .placeholder { /* ... */ }
+.summary-divider { /* ... */ }
+.percentage-summary { /* ... */ }
+
 @media (max-width: 600px) {
   #root { padding: 0.5rem; }
   .simple-attendance-container .form-row { flex-direction: column; align-items: center; }
-  .average-calculator-container .form-row { flex-wrap: wrap; justify-content: center; }
+  .average-calculator-container .form-row { flex-wrap: wrap; justify-content: center;}
   .average-calculator-container .form-row input { width: 120px; }
   .react-calendar__tile { height: 40px; font-size: 0.8em; }
   .react-calendar__navigation button, .react-calendar__month-view__weekdays__weekday abbr { font-size: 0.9em; }
-  .form-headers { display: none; }
+  .form-headers span { width: 120px; }
+  
+  /* Ajustar el header de detalle en móvil */
+  .subject-detail-header {
+    flex-wrap: wrap; /* Permite que los elementos bajen si no caben */
+    justify-content: center; /* Centra los elementos */
+  }
+  .subject-detail-header .back-link {
+    width: 100%; /* Ocupa todo el ancho */
+    text-align: center; /* Centra el enlace */
+    margin-bottom: 10px;
+  }
+  .subject-detail-header h1 {
+     width: 100%;
+     order: 2; /* Pone el título debajo del enlace */
+     margin-bottom: 10px;
+  }
+   .subject-detail-header .header-delete-button {
+     order: 3; /* Pone el botón al final */
+   }
 }
