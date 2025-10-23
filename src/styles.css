@@ -115,21 +115,28 @@ button:hover {
   border-color: #646cff;
 }
 
+/* --- ESTILOS MODIFICADOS PARA EL BOTÓN DE BORRAR --- */
 .subject-delete-button {
   background-color: transparent;
   border: none;
+  border-left: 1px solid #555; /* La línea divisoria */
+  border-radius: 0; /* Para que la línea sea recta */
   color: #a9a9b3;
   font-size: 1.2em;
-  padding: 5px;
+  padding: 5px 0px 5px 15px; /* Espacio a la izquierda de la línea */
+  margin-left: 15px; /* Espacio entre el nombre y la línea */
   cursor: pointer;
   line-height: 1;
-  margin-left: 10px;
+  transition: color 0.2s; /* Transición solo para el color */
 }
+
 .subject-delete-button:hover {
   color: #dc3545;
   background-color: transparent;
-  border-color: transparent;
+  border-color: transparent; /* Evita que aparezca un borde al pasar el mouse */
+  border-left: 1px solid #555; /* Mantiene la línea divisoria */
 }
+/* ------------------------------------------------ */
 
 .subject-detail-header {
   display: flex;
