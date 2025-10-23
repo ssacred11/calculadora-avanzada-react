@@ -144,6 +144,17 @@ input:-webkit-autofill:active {
 .form-headers span { width: 160px; margin: 0 5px; box-sizing: border-box; font-weight: bold; color: #a9a9b3; font-size: 0.9em; }
 .form-headers .placeholder { width: 40px; margin: 0 5px; }
 
+/* Estilos para Resumen de Asistencia */
+.summary-divider {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 10px 0;
+}
+.percentage-summary {
+  margin-top: 10px;
+  font-size: 1.1em;
+}
+
 /* Arreglos para Móviles */
 @media (max-width: 600px) {
   #root { padding: 0.5rem; }
@@ -152,75 +163,5 @@ input:-webkit-autofill:active {
   .average-calculator-container .form-row input { width: 120px; }
   .react-calendar__tile { height: 40px; font-size: 0.8em; }
   .react-calendar__navigation button, .react-calendar__month-view__weekdays__weekday abbr { font-size: 0.9em; }
-
-  /* --- MODIFICACIÓN: Ya no se ocultan los headers, se ajustan --- */
-  .form-headers span {
-    width: 120px; /* Se ajusta al nuevo ancho del input en móvil */
-  }
-}
-
-/* --- ESTILOS PARA EL SPINNER DE CARGA --- */
-.spinner {
-  border: 4px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  border-top: 4px solid #646cff;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto; /* Centra el spinner */
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* --- NUEVOS ESTILOS PARA EL PANEL DE ASIGNATURAS --- */
-.subject-creator {
-  margin-bottom: 2rem;
-}
-.subject-creator form {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-.subject-creator input {
-  width: 100%;
-  max-width: 300px;
-}
-
-.subjects-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.subject-card {
-  background-color: #2D2D2D;
-  border: 1px solid #444;
-  border-radius: 8px;
-  padding: 2rem 1rem;
-  color: #E0E0E0;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.2em;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.subject-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  border-color: #646cff;
-}
-
-.back-link {
-  display: block;
-  text-align: left;
-  margin-bottom: 1.5rem;
-  color: #a9a9b3;
-  text-decoration: none;
-  font-weight: bold;
-}
-.back-link:hover {
-  color: #646cff;
+  .form-headers { display: none; }
 }

@@ -4,7 +4,7 @@ import { supabase } from '../supabaseClient';
 import { toast } from 'react-toastify';
 import Spinner from './Spinner';
 
-function AverageCalculator() {
+function AverageCalculator({ subjectId }) {
   const [grades, setGrades] = useState([{ note: '', weight: '' }]);
   const [result, setResult] = useState(null);
   const [combinationName, setCombinationName] = useState('');
@@ -14,16 +14,27 @@ function AverageCalculator() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchSavedCombinations();
-  }, []);
+    if (subjectId) {
+      fetchSavedCombinations();
+    }
+  }, [subjectId]);
 
   const fetchSavedCombinations = async () => {
     setIsLoading(true);
+    handleClear(); // Limpiar el estado antes de cargar nuevas combinaciones
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      const { data, error } = await supabase.from('saved_grades').select('id, combination_name').eq('user_id', user.id);
-      if (error) toast.error('Error al cargar combinaciones');
-      else setSavedCombinations(data);
+      const { data, error } = await supabase
+        .from('saved_grades')
+        .select('id, combination_name')
+        .eq('user_id', user.id)
+        .eq('subject_id', subjectId);
+
+      if (error) {
+        toast.error('Error al cargar combinaciones');
+      } else {
+        setSavedCombinations(data);
+      }
     }
     setIsLoading(false);
   };
@@ -81,12 +92,18 @@ function AverageCalculator() {
     setIsLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
-      const { data, error } = await supabase.from('saved_grades').insert({ user_id: user.id, combination_name: combinationName, grades_data: grades, final_result: finalGrade }).select().single();
+      const { data, error } = await supabase.from('saved_grades').insert({ 
+        user_id: user.id, 
+        subject_id: subjectId,
+        combination_name: combinationName, 
+        grades_data: grades, 
+        final_result: finalGrade 
+      }).select().single();
+
       if (error) toast.error('Error al guardar: ' + error.message);
       else {
         toast.success(`"${data.combination_name}" guardado!`);
         setCombinationName('');
-        // Optimistic update for the list
         setSavedCombinations(prev => [...prev, { id: data.id, combination_name: data.combination_name }]);
       }
     }
@@ -102,7 +119,7 @@ function AverageCalculator() {
       if (error) toast.error('Error al cargar la combinación.');
       else {
         setGrades(data.grades_data);
-        setCombinationName(data.combination_name); // Also load the name
+        setCombinationName(data.combination_name);
         performCalculation(data.grades_data);
       }
       setIsLoading(false);
@@ -117,9 +134,8 @@ function AverageCalculator() {
       if (error) toast.error('Error al borrar.');
       else {
         toast.success('Combinación borrada.');
-        handleClear();
-        // Optimistic update
         setSavedCombinations(prev => prev.filter(c => c.id != selectedCombinationId));
+        handleClear();
       }
       setIsLoading(false);
     }
