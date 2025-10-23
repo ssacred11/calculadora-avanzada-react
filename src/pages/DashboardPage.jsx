@@ -50,11 +50,12 @@ function DashboardPage() {
     setIsLoading(false);
   };
 
-  // --- NUEVA FUNCIÓN PARA BORRAR ASIGNATURA DESDE EL DASHBOARD ---
-  const handleDeleteSubject = async (subjectId, subjectName) => {
-    // Evita que el clic en el botón active el Link
-    event.stopPropagation(); 
-    event.preventDefault(); 
+  // --- FUNCIÓN MODIFICADA ---
+  // Ahora recibe el 'event' para detener la navegación.
+  const handleDeleteSubject = async (event, subjectId, subjectName) => {
+    // Estas dos líneas son la clave de la solución:
+    event.stopPropagation(); // Detiene el evento para que no llegue al <Link>.
+    event.preventDefault();  // Previene cualquier comportamiento por defecto del enlace.
 
     if (window.confirm(`¿Seguro que quieres borrar la asignatura "${subjectName}" y todos sus datos?`)) {
         setIsLoading(true);
@@ -63,7 +64,7 @@ function DashboardPage() {
             toast.error('Error al borrar la asignatura.');
         } else {
             toast.success('Asignatura borrada.');
-            setSubjects(prev => prev.filter(s => s.id !== subjectId)); // Actualiza la lista al instante
+            setSubjects(prev => prev.filter(s => s.id !== subjectId));
         }
         setIsLoading(false);
     }
@@ -98,15 +99,15 @@ function DashboardPage() {
           <div className="subjects-list">
             {subjects.length > 0 ? (
               subjects.map(subject => (
-                // El Link ahora envuelve toda la tarjeta
                 <Link to={`/subject/${subject.id}`} key={subject.id} className="subject-card">
                   <span>{subject.name}</span>
-                  {/* Botón de borrar dentro de la tarjeta */}
+                  {/* --- LLAMADA AL BOTÓN MODIFICADA --- 
+                      Ahora pasamos el 'event' a la función. */}
                   <button 
-                    onClick={() => handleDeleteSubject(subject.id, subject.name)} 
+                    onClick={(event) => handleDeleteSubject(event, subject.id, subject.name)} 
                     className="subject-delete-button"
                   >
-                    🗑️ {/* Ícono de papelera */}
+                    🗑️
                   </button>
                 </Link>
               ))
